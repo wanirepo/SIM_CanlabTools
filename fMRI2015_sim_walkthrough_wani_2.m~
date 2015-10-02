@@ -93,8 +93,7 @@ tb = threshold(tb, .05, 'fdr');
 o2 = removeblobs(o2);
 o2 = addblobs(o2, region(tb), 'splitcolor', {[0 0 1] [.3 0 .8] [.8 .3 0] [1 1 0]});
 
-%% OPTIONAL: DISPLAY AN EXAMPLE OF SIGNAL
-
+%%
 colors = [0.1961    0.5333    0.7412
     0.8353    0.2431    0.3098
     0.6706    0.8667    0.6431
@@ -102,7 +101,6 @@ colors = [0.1961    0.5333    0.7412
 
 subplot(3,1,1);
 h = plot([ts ts_sig]); 
-set(gca, 'ylim', [-.03 .06]);
 for i = 1:numel(h)
     set(h(i), 'color', colors(i,:));
 end
@@ -110,25 +108,17 @@ xlabel('time series')
 ylabel('signal')
 legend('true signal','fake signal', 'true signal + noise',  'fake signal + noise');
 
+%%
+
 subplot(3,1,2);
 h = plot(ts); 
 set(gca, 'ylim', [-.03 .06]);
-for i = 1:numel(h)
-    set(h(i), 'color', colors(i,:));
-end
 xlabel('time series')
 ylabel('signal')
-legend('true signal','fake signal');
+legend('true signal','fake signal', 'true signal + noise',  'fake signal + noise');
+
+%%
 
 
 subplot(3,1,3);
-h = plot(ts_sig); 
-set(gca, 'ylim', [-.03 .06]);
-for i = 1:numel(h)
-    set(h(i), 'color', colors(i+2,:));
-end
-
-xlabel('time series')
-ylabel('signal')
-legend('true signal + noise',  'fake signal + noise');
-
+plot(ts_sig); set(gca, 'ylim', [-.03 .06]);
