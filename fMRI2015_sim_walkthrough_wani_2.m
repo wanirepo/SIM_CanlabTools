@@ -3,7 +3,7 @@ clear all;
 mycomp_dir = '/Users/clinpsywoo/Documents/2011-2016yr/2015-2016_5th_GS';
 basedir = fullfile(mycomp_dir, 'fMRI_TorWager/Wani_simulation');
 
-%% 1. DEFINE SIMULATION SPACE
+%% 1. DEFINE SIMULATION SPACE --------------------------------------------
 dat = fmri_data(which('brainmask.nii'));
 
 % true activaiton: right IFG
@@ -12,7 +12,7 @@ task_t_act = fmri_data(fullfile(basedir, 'IFG_right.nii'));
 % false activation: left IFG
 task_f_act = fmri_data(fullfile(basedir, 'IFG_left.nii'));
 
-%% 2. FIRST-LEVEL ANALYSIS (subject level)
+%% 2. FIRST-LEVEL ANALYSIS (subject level) -------------------------------
 
 % between-subject variability: the values will scale the signal magnitude
 ind_diff = normrnd(1,.3,20,1);
@@ -86,14 +86,16 @@ end
 
 save simulation_res_final b;
 
-%% 2. SECOND-LEVEL T-TEST
+%% 2. SECOND-LEVEL T-TEST ------------------------------------------------
 o2 = canlab_results_fmridisplay([], 'compact2', 'noverbose');
 tb = ttest(b);
 tb = threshold(tb, .05, 'fdr');
 o2 = removeblobs(o2);
 o2 = addblobs(o2, region(tb), 'splitcolor', {[0 0 1] [.3 0 .8] [.8 .3 0] [1 1 0]});
 
-%% OPTIONAL: DISPLAY AN EXAMPLE OF SIGNAL
+%% =======================================================================
+% OPTIONAL: DISPLAY AN EXAMPLE OF SIGNAL 
+% ========================================================================
 
 colors = [0.1961    0.5333    0.7412
     0.8353    0.2431    0.3098
